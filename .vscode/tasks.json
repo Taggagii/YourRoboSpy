@@ -7,6 +7,18 @@
             "label": "start",
             "type": "shell",
             "command": "cd introduction ; node main.js",
+        },
+        {
+            "label": "push",
+            "type": "shell",
+            "command": "echo ${input:someText}",
+            
+        }
+    ], "inputs": [
+        {
+            "id": "someText",
+            "type": "promptString",
+            "description": "Some text to enter"
         }
     ]
 }
