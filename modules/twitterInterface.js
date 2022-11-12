@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const configJSON = JSON.parse(fs.readFileSync('./config.json'));
+
 /**
  * Saves tweet information to json file
  * 
@@ -17,10 +18,7 @@ const saveTweetObj = (data) => {
     try {
         const jsonText = fs.readFileSync(jsonFileName);
         json = JSON.parse(jsonText);
-    } catch (err) {
-        console.error("we encountered an error while reading the json file");
-        console.log(err);
-    } finally {
+    } catch (_) {} finally {
         json[data.id] = data;
         const newJsonText = JSON.stringify(json);
         fs.writeFileSync(jsonFileName, newJsonText);
