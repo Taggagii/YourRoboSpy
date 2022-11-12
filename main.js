@@ -44,7 +44,7 @@ const main = async () => {
 			// call openai stuff to generate reply
 			const replyText = textGen.generateAnswer(
 				subjName=subjName,
-				context=desc,
+				context=subjDesc,
 				// TODO Is this the proper way to extract selected question text
 				question=selectedQuestion.text,
 			);
