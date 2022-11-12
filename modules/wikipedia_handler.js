@@ -17,7 +17,8 @@ module.exports = {
 		//Response of type @Page object
 		const summary = await page.summary();
 		//console.log(summary.extract);
-        return summary.extract
+		const sentences = summary.extract.split(".")
+        return sentences[0]+" "+sentences[2]
 		//Response of type @wikiSummary - contains the intro and the main image
 	} catch (error) {
 		console.log(error);
