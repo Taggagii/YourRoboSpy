@@ -7,17 +7,6 @@
             "label": "start",
             "type": "shell",
             "command": "cd introduction ; node main.js",
-        },
-        {
-            "label": "push",
-            "type": "shell",
-            "command": "git add . ; git commit -m \"${input:commitMessage}\" ; git push origin main",
-            "presentation": {
-                "focus": true,
-                "showReuseMessage": false,
-                "clear": false,
-                "close": false
-            }
         }
     ], "inputs": [
         {
