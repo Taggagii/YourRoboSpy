@@ -15,7 +15,8 @@
             "presentation": {
                 "focus": true,
                 "showReuseMessage": false,
-                "clear": false
+                "clear": false,
+                "close": false
             }
         }
     ], "inputs": [
