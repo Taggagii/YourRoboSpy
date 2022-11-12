@@ -1,10 +1,10 @@
 const { Configuration, OpenAIApi } = require("openai");
 const fs = require('fs');
 
-const configJSON = JSON.parse(fs.readFileSync('./config.json'));
+const configJSON = JSON.parse(fs.readFileSync('./config.json')).openai;
 
 const configuration = new Configuration({
-  apiKey: configJSON.openai.apiKey,
+  apiKey: configJSON.apiKey,
 });
 const openai = new OpenAIApi(configuration);
 

@@ -1,4 +1,4 @@
-const twitterInterface = require("./modules/twitterInterface.js");
+//const twitterInterface = require("./modules/twitterInterface.js");
 const textGen = require("./modules/textGen");
 const wiki = require("./modules/wikipedia_handler")
 
@@ -18,47 +18,50 @@ const selectQuestion = (replies) => replies[0];
 
 const main = async () => {
 
-  while (true) {
-    const subjName = wiki.getSubjectName();
-    const subjDesc = wiki.getWikiDesc(subjName);
+  //while (true) {
+    const subjName = await wiki.getSubjectName();
+    const subjDesc = await wiki.getWikiDesc(subjName);
     
     const initPost = generateInitPost(subjName, subjDesc);
+    console.log(initPost)
 
-    // TODO SPRINKLE also send cover image at start
-    const res = await twitterInterface.postTweet(initPost);
+    //console.log(initPost)
+  //   // TODO SPRINKLE also send cover image at start
+  //   const res = await twitterInterface.postTweet(initPost);
 
-    const start = new Date();
+  //   const start = new Date();
     
-    // keep this subject for a day
-    while (new Date() - start < MS_IN_DAY) {
-			await sleep(MS_REPLY_DELAY);
+  //   // keep this subject for a day
+  //   while (new Date() - start < MS_IN_DAY) {
+	// 		await sleep(MS_REPLY_DELAY);
 
-			// TODO is this the corret twitter id we are passing
-      const replies = await twitterInterface.getReplies(res.id);
+	// 		// TODO is this the corret twitter id we are passing
+  //     const replies = await twitterInterface.getReplies(res.id);
 
-      // TODO add proper selection logic for tweets
-      // don't reply to same tweet many times
-      // choose best reply on some criteria
-      const selectedQuestion = selectQuestion(replies);
+  //     // TODO add proper selection logic for tweets
+  //     // don't reply to same tweet many times
+  //     // choose best reply on some criteria
+  //     const selectedQuestion = selectQuestion(replies);
 
-			// call openai stuff to generate reply
-			const replyText = textGen.generateAnswer(
-				subjName=subjName,
-				context=subjDesc,
-				// TODO Is this the proper way to extract selected question text
-				question=selectedQuestion.text,
-			);
+	// 		// call openai stuff to generate reply
+	// 		const replyText = textGen.generateAnswer(
+	// 			subjName=subjName,
+	// 			context=subjDesc,
+	// 			// TODO Is this the proper way to extract selected question text
+	// 			question=selectedQuestion.text,
+	// 		);
 			
-			// respond with reply
-      const replyResp = await twitterInterface.replyTo(
-				replyText,
-				// TODO is this how to get id of question we are replying to
-				selectedQuestion.id
-			);
-    }
+	// 		// respond with reply
+  //     const replyResp = await twitterInterface.replyTo(
+	// 			replyText,
+	// 			// TODO is this how to get id of question we are replying to
+	// 			selectedQuestion.id
+	// 		);
+  //   }
 
-    subjIdx += 1;
-  }
+  //   subjIdx += 1;
+  // }
+//}
 }
 
 main();
