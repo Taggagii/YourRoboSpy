@@ -11,7 +11,7 @@
         {
             "label": "push",
             "type": "shell",
-            "command": "git commit -am \"${input:commitMessage}\" ; git push origin main",
+            "command": "git add . ; git commit -m \"${input:commitMessage}\" ; git push origin main",
             "presentation": {
                 "focus": true,
                 "showReuseMessage": false,
