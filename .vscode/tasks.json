@@ -12,8 +12,11 @@
             "label": "push",
             "type": "shell",
             "command": "git commit -am \"${input:commitMessage}\" ; git push origin main",
-            "promptOnClose": false
-            
+            "presentation": {
+                "focus": true,
+                "showReuseMessage": false,
+                "clear": false
+            }
         }
     ], "inputs": [
         {
