@@ -139,6 +139,9 @@ const getConversation = async (tid) => {
         }
     });
     if (res.status === 200) {
+        if (res.data.hasOwnProperty('errors')) {
+            return res.data.errors;
+        }
         return res.data?.data[0]?.conversation_id;
     } else {
         return TWITTERINTERFACEERRORMSG;
@@ -157,7 +160,7 @@ const getReplies = async (values) => {
     if (values.hasOwnProperty('conversationId')) {
         ({ conversationId } = values);
     } else {
-        conversationId = await getConversation(tid);
+        conversationId = await getConversation(values.tid);
     }
 
     const res = await axios.get(`https://api.twitter.com/2/tweets/search/recent?query=conversation_id:${conversationId}`, {
@@ -178,19 +181,18 @@ const buildReplier = async (tid) => {
     const outputObj = {
         conversationId,
         tid,
-        text: "something dunno",
+        text: "NO MESSAGE TEXT FOUND DO NOT USE!",
         getReplies: async () => {
             const res = await getReplies({ conversationId });
             return res;
         }
     }
-    
     return outputObj;
 }
 
 const getReplier = async (msg, imageNames) => {
     const res = await postTweet(msg, imageNames);
-    const tid = res.id;
+    const tid = res.id_str.toString();
     const conversationId = await getConversation(tid);
     const outputObj = {
         conversationId,
@@ -201,6 +203,7 @@ const getReplier = async (msg, imageNames) => {
             return res;
         }
     }
+    return outputObj;
 }
 
 
