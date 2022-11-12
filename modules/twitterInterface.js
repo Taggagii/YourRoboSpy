@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const { config } = require('process');
 
-const configJSON = JSON.parse(fs.readFileSync('./config.json'));
+const configJSON = JSON.parse(fs.readFileSync('./config.json')).twitter;
 const jsonFileName = path.join(__dirname, 'previousTweets.json');
 
 const client = new TwitterApi(configJSON);
