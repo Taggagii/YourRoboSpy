@@ -3,19 +3,12 @@ const fs = require('fs');
 
 const configJSON = JSON.parse(fs.readFileSync('./config.json'));
 
-const makeRequest = async () => {
+const postTweet = async (msg, imageNames) => {
     const client = new TwitterApi(configJSON);
 
-    const mediaIds = await Promise.all([
-        client.v1.uploadMedia('./tiger.png'),
-        client.v1.uploadMedia('./tiger2.png'),
-    ]);
+    const mediaIds = await Promise.all(imageNames.map((name) => {
+        client.v1.uploadMedia(name);
+    }));
     
-
-    client.v1.tweet('stupid things in the world now that things are to be', { media_ids: mediaIds })
-    
-
-    
+    client.v1.tweet(msg, { media_ids: mediaIds })    
 }
-
-makeRequest();
