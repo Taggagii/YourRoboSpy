@@ -4,5 +4,8 @@
         "appSecret": "",
         "accessToken": "",
         "accessSecret": ""
+    },
+    "openai": {
+        "apiKey": ""
     }
 }
