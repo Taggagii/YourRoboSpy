@@ -1,4 +1,4 @@
-const textGen = require('./textGen');
+const textGen = require('./modules/textGen');
 
 const test = async () => {
   const res = await textGen.generateAnswer(
