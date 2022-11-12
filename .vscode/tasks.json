@@ -6,7 +6,10 @@
         {
             "label": "start",
             "type": "shell",
-            "command": "cd introduction ; node main.js",
+            "command": "node main.js",
+            "presentation": {
+                "clear": true
+            }
         }
     ], "inputs": [
         {
