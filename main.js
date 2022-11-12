@@ -15,8 +15,9 @@ const twitterInterface = require("./modules/twitterInterface.js");
 const tid = "1591467058188980224";
 
 const letThing = async () => {
+  // console.log(await twitterInterface.getBearer());
   // console.log(await twitterInterface.getTweet(tid));
-  console.log(await twitterInterface.getConversation(tid));
+  console.log(await twitterInterface.getReplies(tid));
   // await twitterInterface.replyTo('tesitng reply', tid);
 };
 
