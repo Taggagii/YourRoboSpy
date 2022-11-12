@@ -11,14 +11,15 @@
         {
             "label": "push",
             "type": "shell",
-            "command": "echo ${input:someText}",
+            "command": "git commit -am \"${input:commitMessage}\" ; git push origin main",
+            "promptOnClose": false
             
         }
     ], "inputs": [
         {
-            "id": "someText",
+            "id": "commitMessage",
             "type": "promptString",
-            "description": "Some text to enter"
+            "description": "Commit message to push to github"
         }
     ]
 }
