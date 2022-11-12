@@ -1,6 +1,8 @@
 {
-    "appKey": "",
-    "appSecret": "",
-    "accessToken": "",
-    "accessSecret": ""
+    "twitter": {
+        "appKey": "",
+        "appSecret": "",
+        "accessToken": "",
+        "accessSecret": ""
+    }
 }
