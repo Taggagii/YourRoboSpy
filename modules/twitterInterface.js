@@ -88,7 +88,6 @@ const deleteTweet = async (id) => {
 
 /**
  * Get's Bearer token for a user
- * 
  */
 const getBearer = async () => {
     const params = new URLSearchParams();
@@ -116,18 +115,47 @@ const getTweet = async (id) => {
     return res;
 }
 
-
-const replyTo = async (replyText, id) => {
-    const res = client.v1.reply(replyText, id);
+/**
+ * Replys with `replyText` to a given twitter id
+ * 
+ * @param  {String} replyText
+ * @param  {String} tid
+ */
+const replyTo = async (replyText, tid) => {
+    const res = client.v1.reply(replyText, tid);
     return res;
 }
 
-
+/**
+ * Get's conversationId for a given twitter id 
+ * 
+ * @param  {string} tid
+ */
 const getConversation = async (tid) => {
-    const res = await axios.get(`https://api.twitter.com/2/tweets?ids=${tid}&tweet.fields=author_id,conversation_id,created_at,in_reply_to_user_id,referenced_tweets&expansions=author_id,in_reply_to_user_id,referenced_tweets.id&user.fields=name,username`, {
+    const res = await axios.get(`https://api.twitter.com/2/tweets?ids=${tid}&tweet.fields=conversation_id`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${await getBearer()}`
+        }
+    });
+    if (res.status === 200) {
+        return res.data?.data[0]?.conversation_id;
+    } else {
+        return TWITTERINTERFACEERRORMSG;
+    }
+};
+
+/**
+ * Get's replies for a given twitter id
+ * 
+ * @param  {String} tid
+ */
+const getReplies = async (tid) => {
+    const conversationId = await getConversation(tid);
+    const res = await axios.get(`https://api.twitter.com/2/tweets/search/recent?query=conversation_id:${conversationId}&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${await getBearer()}`,
         }
     });
     if (res.status === 200) {
@@ -135,25 +163,12 @@ const getConversation = async (tid) => {
     } else {
         return TWITTERINTERFACEERRORMSG;
     }
-};
-
-
-/**
- * Get's replys for a specified tweet id
- * 
- * @param  {String} id
- */
- const getReplys = async (id) => {
-    console.log(id);
 }
 
 module.exports =  {
     postTweet, 
     deleteTweet,
-    saveTweetObj,
-    getRecentTweets, 
-    getReplys,
+    getReplies,
     getTweet,
     replyTo,
-    getConversation,
 }
