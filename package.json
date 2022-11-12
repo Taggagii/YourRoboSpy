@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "twitter-api-v2": "^1.12.9"
+    "twitter-api-v2": "^1.12.9",
+    "wikipedia": "^1.1.9"
   }
 }
