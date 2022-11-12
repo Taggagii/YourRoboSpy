@@ -148,11 +148,19 @@ const getConversation = async (tid) => {
 /**
  * Get's replies for a given twitter id
  * 
- * @param  {String} tid
+ * @param  {Object} values
+ * @param  {String} values.tid - optional
+ * @param  {String} values.conversationId - optional
  */
-const getReplies = async (tid) => {
-    const conversationId = await getConversation(tid);
-    const res = await axios.get(`https://api.twitter.com/2/tweets/search/recent?query=conversation_id:${conversationId}&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id`, {
+const getReplies = async (values) => {
+    let conversationId;
+    if (values.hasOwnProperty('conversationId')) {
+        ({ conversationId } = values);
+    } else {
+        conversationId = await getConversation(tid);
+    }
+
+    const res = await axios.get(`https://api.twitter.com/2/tweets/search/recent?query=conversation_id:${conversationId}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${await getBearer()}`,
@@ -165,10 +173,44 @@ const getReplies = async (tid) => {
     }
 }
 
+const buildReplier = async (tid) => {
+    const conversationId = await getConversation(tid);
+    const outputObj = {
+        conversationId,
+        tid,
+        text: "something dunno",
+        getReplies: async () => {
+            const res = await getReplies({ conversationId });
+            return res;
+        }
+    }
+    
+    return outputObj;
+}
+
+const getReplier = async (msg, imageNames) => {
+    const res = await postTweet(msg, imageNames);
+    const tid = res.id;
+    const conversationId = await getConversation(tid);
+    const outputObj = {
+        conversationId,
+        tid,
+        text: res.full_text,
+        getReplies: async () => {
+            const res = await getReplies({ conversationId });
+            return res;
+        }
+    }
+}
+
+
+
 module.exports =  {
     postTweet, 
     deleteTweet,
     getReplies,
     getTweet,
     replyTo,
+    getReplier,
+    buildReplier,
 }

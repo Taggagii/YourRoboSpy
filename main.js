@@ -27,8 +27,8 @@ const main = async () => {
     // TODO generate init post with gpt-3 to be interesting
     const initPost = generateInitPost(subjName, desc);
 
-    // TODO SPRINKLE also send cover image at start
-    const res = await twitterInterface.postTweet(initPost, undefined);
+    // todo : (sprinkle) also send cover image at start
+    const res = await twitterInterface.getReplier(initPost);
 
     const start = new Date();
     
