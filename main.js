@@ -1,4 +1,4 @@
-//const twitterInterface = require("./modules/twitterInterface.js");
+const twitterInterface = require("./modules/twitterInterface.js");
 const textGen = require("./modules/textGen");
 const wiki = require("./modules/wikipedia_handler")
 
@@ -28,8 +28,6 @@ const selectQuestion = (replies) => {
   throw new Error("No new questions available")
 };
 
-
-
 const main = async () => {
 
   while (true) {
@@ -39,18 +37,18 @@ const main = async () => {
     const initPost = generateInitPost(subjName, subjDesc);
     console.log(initPost)
 
-    //console.log(initPost)
-  //   // todo : (sprinkle) also send cover image at start
-  //   const res = await twitterInterface.getReplier(initPost);
+    // todo : (sprinkle) also send cover image at start
+    const replier = await twitterInterface.getReplier(initPost);
 
-     const start = new Date();
+    console.log({replier})
+    const start = new Date();
     
     // keep this subject for a day
     while (new Date() - start < MS_IN_DAY) {
-			await sleep(MS_REPLY_DELAY);
+			// await sleep(MS_REPLY_DELAY); // todo : uncomment
 
-			// TODO is this the corret twitter id we are passing
-      const replies = await twitterInterface.getReplies(res.id);
+      const replies = await replier.getReplies(); 
+      console.log({replies});
 
       // TODO add proper selection logic for tweets
       // don't reply to same tweet many times
@@ -58,17 +56,10 @@ const main = async () => {
       const selectedQuestion = selectQuestion(replies);
 
 			// call openai stuff to generate reply
-			const replyText = textGen.generateAnswer(
-				subjName=subjName,
-				context=subjDesc,
-				question=selectedQuestion.text,
-			);
+			const replyText = textGen.generateAnswer(subjDesc, subjName, selectedQuestion.text);
 			
 			// respond with reply
-      const replyResp = await twitterInterface.replyTo(
-				replyText,
-				selectedQuestion.id
-			);
+      const replyResp = await twitterInterface.replyTo(replyText, replier.tid);
     }
 
     subjIdx += 1;

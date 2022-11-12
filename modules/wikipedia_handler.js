@@ -13,8 +13,7 @@ module.exports = {
     getWikiDesc: async (subjectName) => {
 	try {
 		const page = await wiki.page(subjectName);
-		//console.log(page);
-		//Response of type @Page object
+		// Response of type @Page object
 		const summary = await page.summary();
 		//console.log(summary.extract);
 		const sentences = summary.extract.split(".")
@@ -22,7 +21,7 @@ module.exports = {
 		//Response of type @wikiSummary - contains the intro and the main image
 	} catch (error) {
 		console.log(error);
-		//=> Typeof wikiError
+		// => Typeof wikiError
 	}
 }
 };
