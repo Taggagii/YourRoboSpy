@@ -1,4 +1,4 @@
 const twitterInterface = require('./modules/twitterInterface.js');
 
 
-twitterInterface.postTweet('i like joiuoiyupuoaisdfn' + Math.random(), ['./tiger.png']);
+twitterInterface.postTweet('he sighs and then walks home to the other world that is a thing', ['./tiger.png']);

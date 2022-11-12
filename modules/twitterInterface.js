@@ -24,6 +24,7 @@ const saveTweetObj = (data) => {
         fs.writeFileSync(jsonFileName, newJsonText);
     }
 };
+
 /**
  * Post tweets without saving the output
  * 
@@ -44,9 +45,9 @@ const postTweetRaw = async (msg = undefined, imageNames = undefined) => {
     }
     
     const res = await client.v1.tweet(msg, { media_ids: mediaIds })    
-    console.log(res);
-    return res;
+    return res; 
 }
+
 /**
  * Posts tweets and saves the id to a json file to allow for deletion
  * 
@@ -56,16 +57,17 @@ const postTweetRaw = async (msg = undefined, imageNames = undefined) => {
 const postTweet = async (msg = undefined, imageNames = undefined) => {
     const res = await postTweetRaw(msg, imageNames);
     const id = res.id;
-    console.log(res);
     const saveObj = { msg, imageNames, id };
     saveTweetObj(saveObj);
     return res;
 }
 
 const deleteTweet = async (id) => {
-
+    const deletedTweet = await client.v1.deleteTweet(id);
+    return deletedTweet;
 }
 
 module.exports =  {
     postTweet, 
+    deleteTweet
 }
