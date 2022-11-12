@@ -16,7 +16,7 @@ const generateInitPost = (subjName, subjDesc) => `My name is ${subjName}. ${subj
 let answeredQuestionIds = []
 
 const selectQuestion = (replies) => {
-  replies.forEach(element => {
+  replies?.data?.forEach(element => {
     if(element.id in answeredQuestionIds) {
       
     }
