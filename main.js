@@ -1,5 +1,6 @@
 const twitterInterface = require("./modules/twitterInterface.js");
 const textGen = require("./modules/textGen");
+const wiki = require("./modules/wikipedia_handler")
 
 
 const MS_IN_DAY = 1000*60*60*24;
