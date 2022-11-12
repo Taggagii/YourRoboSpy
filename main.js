@@ -26,8 +26,8 @@ const main = async () => {
     console.log(initPost)
 
     //console.log(initPost)
-  //   // TODO SPRINKLE also send cover image at start
-  //   const res = await twitterInterface.postTweet(initPost);
+  //   // todo : (sprinkle) also send cover image at start
+  //   const res = await twitterInterface.getReplier(initPost);
 
   //   const start = new Date();
     
