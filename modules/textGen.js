@@ -23,7 +23,7 @@ module.exports = {
       model: "text-davinci-002",
       prompt: prompt,
       temperature: 1,
-      max_tokens: 600
+      max_tokens: 50
     });
     return completion.data.choices[0].text;
   }
