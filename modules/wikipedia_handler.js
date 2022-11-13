@@ -17,7 +17,12 @@ module.exports = {
 		const summary = await page.summary();
 		//console.log(summary.extract);
 		const sentences = summary.extract.split(".")
-        return sentences[0]+" "+sentences[2]
+        let output = sentences[0]+" "+sentences[2];
+        if (output.length > 200) {
+           output = sentences[0]; 
+        }
+        return output;
+        
 		//Response of type @wikiSummary - contains the intro and the main image
 	} catch (error) {
 		console.log(error);

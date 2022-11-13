@@ -2,9 +2,8 @@ const { TwitterApi } = require('twitter-api-v2');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { config } = require('process');
 
-const configJSON = JSON.parse(fs.readFileSync('./config.json')).twitter;
+const configJSON = JSON.parse(fs.readFileSync('./config.json')).twitter.clientAuth;
 const jsonFileName = path.join(__dirname, 'previousTweets.json');
 
 const client = new TwitterApi(configJSON);
@@ -191,6 +190,10 @@ const buildReplier = async (tid) => {
 }
 
 const getReplier = async (msg, imageNames) => {
+    if (msg.length > 280) {
+        console.log('Tried to tweet a thing about 280');
+        msg = msg.slice(0, 280);
+    }
     const res = await postTweet(msg, imageNames);
     const tid = res.id_str.toString();
     const conversationId = await getConversation(tid);
