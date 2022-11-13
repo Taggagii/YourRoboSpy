@@ -1,11 +1,14 @@
 {
-    "twitter": {
-        "appKey": "",
-        "appSecret": "",
-        "accessToken": "",
-        "accessSecret": ""
-    },
     "openai": {
         "apiKey": ""
+    },
+    "twitter": {
+        "clientAuth": {
+            "appKey": "",
+            "appSecret": "",
+            "accessToken": "",
+            "accessSecret": ""
+        },
+        "accountUsername": ""
     }
 }
